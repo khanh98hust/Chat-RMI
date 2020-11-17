@@ -90,10 +90,7 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 		//-----------------------------------------
 		//remove window buttons and border frame
 		//to force user to exit on a button
-		//- one way to control the exit behaviour
-	    //frame.setUndecorated(true);
-	    //frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-	
+
 		Container c = getContentPane();
 		JPanel outerPanel = new JPanel(new BorderLayout());
 		outerPanel.add(getInputPanel(), BorderLayout.CENTER);
@@ -125,11 +122,49 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
+
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		textPanel = new JPanel();
 		textPanel.add(scrollPane);
 	
 		textPanel.setFont(new Font("Meiryo", Font.PLAIN, 14));
 		return textPanel;
+	}
+
+	/**
+	 * Method to build the panel with input field
+	 * @return inputPanel
+	 */
+	public JPanel getInputPanel(){
+		inputPanel = new JPanel(new GridLayout(1, 1, 5, 5));
+		inputPanel.setBorder(blankBorder);	
+		textField = new JTextField();
+		textField.setFont(meiryoFont);
+		inputPanel.add(textField);
+		return inputPanel;
+	}
+
+	/**
+	 * Method to build the panel displaying currently connected users
+	 * with a call to the button panel building method
+	 * @return
+	 */
+	public JPanel getUsersPanel(){
+		
+		userPanel = new JPanel(new BorderLayout());
+		String  userStr = " Current Users      ";
+		
+		JLabel userLabel = new JLabel(userStr, JLabel.CENTER);
+		userPanel.add(userLabel, BorderLayout.NORTH);	
+		userLabel.setFont(new Font("Meiryo", Font.PLAIN, 16));
+
+		String[] noClientsYet = {"No other users"};
+		setClientPanel(noClientsYet);
+
+		clientPanel.setFont(meiryoFont);
+		userPanel.add(makeButtonPanel(), BorderLayout.SOUTH);		
+		userPanel.setBorder(blankBorder);
+
+		return userPanel;		
 	}
 }
