@@ -167,4 +167,146 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 
 		return userPanel;		
 	}
+
+	/**
+	 * Populate current user panel with a 
+	 * selectable list of currently connected users
+	 * @param currClients
+	 */
+    public void setClientPanel(String[] currClients) {  	
+    	clientPanel = new JPanel(new BorderLayout());
+        listModel = new DefaultListModel<String>();
+        
+        for(String s : currClients){
+        	listModel.addElement(s);
+        }
+        if(currClients.length > 1){
+        	privateMsgButton.setEnabled(true);
+        }
+        
+        //Create the list and put it in a scroll pane.
+        list = new JList<String>(listModel);
+        list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        list.setVisibleRowCount(8);
+        list.setFont(meiryoFont);
+        JScrollPane listScrollPane = new JScrollPane(list);
+
+        clientPanel.add(listScrollPane, BorderLayout.CENTER);
+        userPanel.add(clientPanel, BorderLayout.CENTER);
+    }
+	
+	/**
+	 * Make the buttons and add the listener
+	 * @return
+	 */
+	public JPanel makeButtonPanel() {		
+		sendButton = new JButton("Send ");
+		sendButton.addActionListener(this);
+		sendButton.setEnabled(false);
+
+        privateMsgButton = new JButton("Send PM");
+        privateMsgButton.addActionListener(this);
+        privateMsgButton.setEnabled(false);
+		
+		startButton = new JButton("Start ");
+		startButton.addActionListener(this);
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(4, 1));
+		buttonPanel.add(privateMsgButton);
+		buttonPanel.add(new JLabel(""));
+		buttonPanel.add(startButton);
+		buttonPanel.add(sendButton);
+		
+		return buttonPanel;
+	}
+	
+	/**
+	 * Action handling on the buttons
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e){
+
+		try {
+			//get connected to chat service
+			if(e.getSource() == startButton){
+				name = textField.getText();				
+				if(name.length() != 0){
+					frame.setTitle(name + "'s console ");
+					textField.setText("");
+					textArea.append("username : " + name + " connecting to chat...\n");							
+					getConnected(name);
+					if(!chatClient.connectionProblem){
+						startButton.setEnabled(false);
+						sendButton.setEnabled(true);
+						}
+				}
+				else{
+					JOptionPane.showMessageDialog(frame, "Enter your name to Start");
+				}
+			}
+
+			//get text and clear textField
+			if(e.getSource() == sendButton){
+				message = textField.getText();
+				textField.setText("");
+				sendMessage(message);
+				System.out.println("Sending message : " + message);
+			}
+			
+			//send a private message, to selected users
+			if(e.getSource() == privateMsgButton){
+				int[] privateList = list.getSelectedIndices();
+				
+				for(int i=0; i<privateList.length; i++){
+					System.out.println("selected index :" + privateList[i]);
+				}
+				message = textField.getText();
+				textField.setText("");
+				sendPrivate(privateList);
+			}
+			
+		}
+		catch (RemoteException remoteExc) {			
+			remoteExc.printStackTrace();	
+		}
+		
+	}//end actionPerformed
+
+	// --------------------------------------------------------------------
+	
+	/**
+	 * Send a message, to be relayed to all chatters
+	 * @param chatMessage
+	 * @throws RemoteException
+	 */
+	private void sendMessage(String chatMessage) throws RemoteException {
+		chatClient.serverIF.updateChat(name, chatMessage);
+	}
+
+	/**
+	 * Send a message, to be relayed, only to selected chatters
+	 * @param chatMessage
+	 * @throws RemoteException
+	 */
+	private void sendPrivate(int[] privateList) throws RemoteException {
+		String privateMessage = "[PM from " + name + "] :" + message + "\n";
+		chatClient.serverIF.sendPM(privateList, privateMessage);
+	}
+	
+	/**
+	 * Make the connection to the chat server
+	 * @param userName
+	 * @throws RemoteException
+	 */
+	private void getConnected(String userName) throws RemoteException{
+		//remove whitespace and non word characters to avoid malformed url
+		String cleanedUserName = userName.replaceAll("\\s+","_");
+		cleanedUserName = userName.replaceAll("\\W+","_");
+		try {		
+			chatClient = new ChatClient3(this, cleanedUserName);
+			chatClient.startClient();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 }
