@@ -96,7 +96,6 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 	
 		Container c = getContentPane();
 		JPanel outerPanel = new JPanel(new BorderLayout());
-		
 		outerPanel.add(getInputPanel(), BorderLayout.CENTER);
 		outerPanel.add(getTextPanel(), BorderLayout.NORTH);
 		
@@ -112,5 +111,25 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 	
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
+
+	/**
+	 * Method to set up the JPanel to display the chat text
+	 * @return
+	 */
+	public JPanel getTextPanel(){
+		String welcome = "Welcome enter your name and press Start to begin\n";
+		textArea = new JTextArea(welcome, 14, 34);
+		textArea.setMargin(new Insets(10, 10, 10, 10));
+		textArea.setFont(meiryoFont);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		textPanel = new JPanel();
+		textPanel.add(scrollPane);
+	
+		textPanel.setFont(new Font("Meiryo", Font.PLAIN, 14));
+		return textPanel;
 	}
 }
