@@ -60,4 +60,57 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 		new ClientRMIGUI();
 		}//end main
 
+	/**
+	 * GUI Constructor
+	 */
+	public ClientRMIGUI(){
+			
+		frame = new JFrame("Client Chat Console");	
+	
+		//-----------------------------------------
+		/*
+		 * intercept close method, inform server we are leaving
+		 * then let the system exit.
+		 */
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        
+		    	if(chatClient != null){
+			    	try {
+			        	sendMessage("Bye all, I am leaving");
+			        	chatClient.serverIF.leaveChat(name);
+					} catch (RemoteException e) {
+						e.printStackTrace();
+					}		        	
+		        }
+		        System.exit(0);  
+		    }   
+		});
+		//-----------------------------------------
+		//remove window buttons and border frame
+		//to force user to exit on a button
+		//- one way to control the exit behaviour
+	    //frame.setUndecorated(true);
+	    //frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+	
+		Container c = getContentPane();
+		JPanel outerPanel = new JPanel(new BorderLayout());
+		
+		outerPanel.add(getInputPanel(), BorderLayout.CENTER);
+		outerPanel.add(getTextPanel(), BorderLayout.NORTH);
+		
+		c.setLayout(new BorderLayout());
+		c.add(outerPanel, BorderLayout.CENTER);
+		c.add(getUsersPanel(), BorderLayout.WEST);
+
+		frame.add(c);
+		frame.pack();
+		frame.setAlwaysOnTop(true);
+		frame.setLocation(150, 150);
+		textField.requestFocus();
+	
+		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
 }
