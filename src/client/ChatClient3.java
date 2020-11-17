@@ -70,4 +70,20 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 			e.printStackTrace();
 		}
 	}
+
+	//=====================================================================
+	/**
+	 * Receive a string from the chat server
+	 * this is the clients RMI method, which will be used by the server 
+	 * to send messages to us
+	 */
+	@Override
+	public void messageFromServer(String message) throws RemoteException {
+		System.out.println( message );
+		chatGUI.textArea.append( message );
+		//make the gui display the last appended text, ie scroll to bottom
+		chatGUI.textArea.setCaretPosition(chatGUI.textArea.getDocument().getLength());
+	}
+
+	
 }
