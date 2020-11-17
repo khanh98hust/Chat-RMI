@@ -56,5 +56,18 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 		}	
 		System.out.println("Client Listen RMI Server is running...\n");
 	}
-  
+	/**
+	 * pass our username, hostname and RMI service name to
+	 * the server to register out interest in joining the chat
+	 * @param details
+	 */
+	public void registerWithServer(String[] details) {		
+		try{
+			serverIF.passIDentity(this.ref);//now redundant ??
+			serverIF.registerListener(details);			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
