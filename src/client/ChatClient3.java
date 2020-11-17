@@ -85,5 +85,19 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 		chatGUI.textArea.setCaretPosition(chatGUI.textArea.getDocument().getLength());
 	}
 
-	
+	/**
+	 * A method to update the display of users 
+	 * currently connected to the server
+	 */
+	@Override
+	public void updateUserList(String[] currentUsers) throws RemoteException {
+
+		if(currentUsers.length < 2){
+			chatGUI.privateMsgButton.setEnabled(false);
+		}
+		chatGUI.userPanel.remove(chatGUI.clientPanel);
+		chatGUI.setClientPanel(currentUsers);
+		chatGUI.clientPanel.repaint();
+		chatGUI.clientPanel.revalidate();
+	}
 }
