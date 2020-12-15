@@ -115,7 +115,7 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 	 * @return
 	 */
 	public JPanel getTextPanel(){
-		String welcome = "Welcome enter your name and press Start to begin\n";
+		String welcome = "Xin chào! nhập tên của bạn và ấn Start để bắt đầu chat \n";
 		textArea = new JTextArea(welcome, 14, 34);
 		textArea.setMargin(new Insets(10, 10, 10, 10));
 		textArea.setFont(meiryoFont);
