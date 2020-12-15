@@ -69,7 +69,7 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 	 * Return a message to client
 	 */
 	public String sayHello(String ClientName) throws RemoteException {
-		System.out.println(ClientName + " sent a message");
+		System.out.println(ClientName +);
 		return "Hello " + ClientName + " from group chat server";
 	}
 	
