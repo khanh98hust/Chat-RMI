@@ -22,10 +22,7 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 	protected boolean connectionProblem = false;
 
 	public ChatClient3(ClientRMIGUI aChatGUI, String userName) throws RemoteException {
-		super();
-		this.chatGUI = aChatGUI;
-		this.name = userName;
-		this.clientServiceName = "ClientListenService_" + userName;
+
 	}
 
 	/**
