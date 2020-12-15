@@ -14,12 +14,6 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 
 	private static final long serialVersionUID = 7468891722773409712L;
 	ClientRMIGUI chatGUI;
-	private String hostName = "localhost";
-	private String serviceName = "GroupChatService";
-	private String clientServiceName;
-	private String name;
-	protected ChatServerIF serverIF;
-	protected boolean connectionProblem = false;
 
 	public ChatClient3(ClientRMIGUI aChatGUI, String userName) throws RemoteException {
 		super();
