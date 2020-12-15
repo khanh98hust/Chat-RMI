@@ -7,13 +7,13 @@
   - đăng ký người dùng trên server
 
 <h3>Members : </h3>
-  - Nguyễn Ngọc Khánh
-  - Nguyễn Phương Hoa
+  - Nguyễn Ngọc Khánh <br/>
+  - Nguyễn Phương Hoa <br/>
   - Hoàng Thị Mơ
 
 <h3>Instructions</h3>
-  - khởi động server trước (main method: ChatServer.java)
-  - chạy client (main method: ClientRMIGUI.java)
+  - khởi động server trước (main method: ChatServer.java) <br/>
+  - chạy client (main method: ClientRMIGUI.java) <br/>
   - nhập tên người dùng và bắt đầu trò chuyện
 
 
