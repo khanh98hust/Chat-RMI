@@ -34,7 +34,7 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 	 * @throws RemoteException
 	 */
 	public void startClient() throws RemoteException {		
-		String[] details = {name, hostName, clientServiceName};	
+		String[] details = {name, clientServiceName};	
 
 		try {
 			Naming.rebind("rmi://" + hostName + "/" + clientServiceName, this);
