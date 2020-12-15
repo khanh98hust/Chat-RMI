@@ -35,7 +35,17 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 	 */
 	public void startClient() throws RemoteException {		
 		String[] details = {name, hostName, clientServiceName};	
-
+		try {
+			Naming.rebind("rmi://" + hostName + "/" + clientServiceName, this);
+			serverIF = ( ChatServerIF )Naming.lookup("rmi://" + hostName + "/" + serviceName);	
+		} 
+		catch (ConnectException  e) {
+			JOptionPane.showMessageDialog(
+					chatGUI.frame, "The server seems to be unavailable\nPlease try later",
+					"Connection problem", JOptionPane.ERROR_MESSAGE);
+			connectionProblem = true;
+			e.printStackTrace();
+		}
 		catch(NotBoundException | MalformedURLException me){
 			connectionProblem = true;
 			me.printStackTrace();
