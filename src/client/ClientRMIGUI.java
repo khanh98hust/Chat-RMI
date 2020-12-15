@@ -78,7 +78,7 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 		        
 		    	if(chatClient != null){
 			    	try {
-			        	sendMessage("Bye all, I am leaving");
+			        	sendMessage("Bye, mình bận mất rồi :<");
 			        	chatClient.serverIF.leaveChat(name);
 					} catch (RemoteException e) {
 						e.printStackTrace();
