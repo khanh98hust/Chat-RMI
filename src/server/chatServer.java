@@ -48,18 +48,7 @@ public class ChatServer extends UnicastRemoteObject implements ChatServerIF {
 	}
 
 	
-	/**
-	 * Start the RMI Registry
-	 */
-	public static void startRMIRegistry() {
-		try{
-			java.rmi.registry.LocateRegistry.createRegistry(1099);
-			System.out.println("RMI Server ready");
-		}
-		catch(RemoteException e) {
-			e.printStackTrace();
-		}
-	}
+
 		
 	
 	//-----------------------------------------------------------
