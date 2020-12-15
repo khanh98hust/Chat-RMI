@@ -14,13 +14,6 @@ public class Chatter {
 	}
 
 	
-	//getters and setters
-	public String getName(){
-		return name;
-	}
-	public ChatClient3IF getClient(){
-		return client;
-	}
-	
+
 	
 }
