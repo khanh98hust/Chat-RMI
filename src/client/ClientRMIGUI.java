@@ -78,7 +78,7 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 		        
 		    	if(chatClient != null){
 			    	try {
-			        	sendMessage("Bye, mình bận mất rồi :<");
+			        	sendMessage("Bye all, I am leaving");
 			        	chatClient.serverIF.leaveChat(name);
 					} catch (RemoteException e) {
 						e.printStackTrace();
@@ -115,7 +115,7 @@ public class ClientRMIGUI extends JFrame implements ActionListener{
 	 * @return
 	 */
 	public JPanel getTextPanel(){
-		String welcome = "Xin chào! nhập tên của bạn và ấn Start để bắt đầu chat \n";
+		String welcome = "Welcome enter your name and press Start to begin\n";
 		textArea = new JTextArea(welcome, 14, 34);
 		textArea.setMargin(new Insets(10, 10, 10, 10));
 		textArea.setFont(meiryoFont);
