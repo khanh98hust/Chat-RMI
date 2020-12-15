@@ -98,5 +98,10 @@ public class ChatClient3  extends UnicastRemoteObject implements ChatClient3IF {
 		chatGUI.setClientPanel(currentUsers);
 		chatGUI.clientPanel.repaint();
 		chatGUI.clientPanel.revalidate();
+		chatGUI.userPanel.remove(chatGUI.clientPanel);
+		chatGUI.setClientPanel(currentUsers);
+		chatGUI.clientPanel.repaint();
+		chatGUI.clientPanel.revalidate();
+		
 	}
 }
